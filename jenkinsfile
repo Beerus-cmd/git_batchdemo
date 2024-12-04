@@ -48,5 +48,13 @@ pipeline {
                 }
             }
         } // Close the CODE ANALYSIS with SONARQUBE stage
+
+        stage('QUALITY GATE') {  
+            steps {  
+                timeout(time: 10, unit: 'MINUTES') {  
+                    waitForQualityGate abortPipeline: true  
+                }  
+            }  
+        } // Close the QUALITY GATE stage
     } // Close the stages block
 } // Close the pipeline block
