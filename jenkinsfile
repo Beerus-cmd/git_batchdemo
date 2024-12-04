@@ -22,6 +22,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'mvn -s settings.xml -DskipTests install'
+        sh 'ls -al target/'  // List files in the target directory to verify the .war file is there
             }
             post {
                 success {
