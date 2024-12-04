@@ -7,7 +7,7 @@ pipeline {
     environment {
         SNAP_REPO = 'profile-snapshot'
         NEXUS_USER = 'admin'
-        NEXUS_PASS = 'admin'
+        NEXUS_PASS = 'admin123'
         RELEASE_REPO = 'profile-release'
         CENTRAL_REPO = 'pro-maven-central'
         NEXUSIP = '172.31.11.249'
