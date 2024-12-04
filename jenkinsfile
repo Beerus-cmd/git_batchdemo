@@ -37,7 +37,7 @@ pipeline {
             }
             steps {
                 withSonarQubeEnv("${SONARSERVER}") {
-                                        sh 'mvn sonar:sonar -Dsonar.projectKey=git_batchdemo'
+                    sh 'mvn sonar:sonar -Dsonar.projectKey=git_batchdemo'
                 }
             }
         } // Close the CODE ANALYSIS with SONARQUBE stage
@@ -49,28 +49,28 @@ pipeline {
                 }  
             }  
         } // Close the QUALITY GATE stage
-   
 
-stage('UPLOAD ARTIFACT') {
-                steps {
-                    nexusArtifactUploader(
-                        nexusVersion: 'nexus3',
-                        protocol: 'http',
-                        nexusUrl: "${NEXUSIP}:${NEXUSPORT}",
-                        groupId: 'QA',
-                        version: "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}",
-                        repository: "${RELEASE_REPO}",
-                        credentialsId: ${NEXUS_LOGIN},
-                        artifacts: [
-                            [artifactId: 'vproapp' ,
+        stage('UPLOAD ARTIFACT') {
+            steps {
+                nexusArtifactUploader(
+                    nexusVersion: 'nexus3',
+                    protocol: 'http',
+                    nexusUrl: "${NEXUSIP}:${NEXUSPORT}",
+                    groupId: 'QA',
+                    version: "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}",
+                    repository: "${RELEASE_REPO}",
+                    credentialsId: "${NEXUS_LOGIN}",
+                    artifacts: [
+                        [
+                            artifactId: 'vproapp',
                             classifier: '',
                             file: 'target/vprofile-v2.war',
-                            type: 'war']
+                            type: 'war'
                         ]
-                    )
-                }
-        }
+                    ]
+                )
+            }
+        } // Close the UPLOAD ARTIFACT stage
 
-
- } // Close the stages block
+    } // Close the stages block
 } // Close the pipeline block
